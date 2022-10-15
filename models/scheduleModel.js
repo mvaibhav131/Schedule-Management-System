@@ -2,9 +2,7 @@
 const mongoose= require("mongoose");
 
 const scheduleSchema= new mongoose.Schema({
-    schedule:{
-        meetings:[
-            {
+    
                 date:{
                     type:Date,
                     required:true,
@@ -22,7 +20,7 @@ const scheduleSchema= new mongoose.Schema({
                         R1:{
                             type:Boolean,
                             required:true,
-                        },
+                            },
                         R2:{
                             type:Boolean,
                             required:true,
@@ -41,14 +39,11 @@ const scheduleSchema= new mongoose.Schema({
                         },
                     },
                 },
-            },
-        ],
-    },
-    user:{
-        type:mongoose.Schema.ObjectId,
-        ref:"User",
-        required:true
-    },
+                user:{
+                    type:mongoose.Schema.ObjectId,
+                    ref:"User",
+                    required:true
+                },
 });
 
 module.exports= mongoose.model("schedule",scheduleSchema);

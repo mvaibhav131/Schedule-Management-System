@@ -3,12 +3,27 @@
 
 const Schedule= require("../models/scheduleModel");
 const catchAsyncError = require("../middleware/catchAsyncError");
-const sendToken = require("../utils/jwtToken");
+
+
+
 
  // add the new schedule to the database
 
  const newSchedule= catchAsyncError(async(req,res)=>{
-      const {date,startTime,endTime}= req.body;
+    const available = {
+        R1: req.body.R1,
+        R2: req.body.R2,
+        R3: req.body.R3,
+        R4: req.body.R4,
+        R5: req.body.R5,
+    };
+    for (var key of Object.keys(available)) {
+        if (available[key] === undefined) {
+          available[key] = false;
+        }
+      }
+      const {date,startTime,endTime,user}= req.body;
+       
       const schedule= await Schedule.create({
         date,
         startTime,
@@ -22,13 +37,18 @@ const sendToken = require("../utils/jwtToken");
                 R5:available.R5,
             },
          },
+         user:req.user.id,
       });
-      sendToken(schedule,201,res);
+   
+     res.status(200).json({
+        success:true,
+        schedule,
+     });
  });
 
  // schedule => GET (if user is Authenticated)
 const getSchedule = catchAsyncError(async(req, res, next)=>{
-const schedules = await Schedule.findById(req.params.id);
+const schedules = await Schedule.find();
 
 if(!schedules){
     res.status(500).json({
@@ -63,7 +83,7 @@ const updateSchedule=catchAsyncError(async(req,res)=>{
    });
    });
 
-//Delete Schedule
+// Delete Schedule
 const deleteSchedule=catchAsyncError(async(req,res)=>{
     const schedule= await Schedule.findById(req.params.id);
     if(!schedule){

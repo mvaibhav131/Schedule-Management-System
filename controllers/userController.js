@@ -14,7 +14,6 @@ const registerUser=catchAsyncError(async(req,res)=>{
     email,
     password,
  });
-
   sendToken(user,201,res);
 });
 
