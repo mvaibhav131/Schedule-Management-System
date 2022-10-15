@@ -1,5 +1,5 @@
 const mongoose= require("mongoose");
-const validator= require("validator");
+// const validator= require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -15,8 +15,8 @@ const userSchema=  new mongoose.Schema({
     email:{
         type:String,
         required:[true,"Please  Enter Your Emails"],
-        unique:true,
-        validate:[validator.isEmail,"Please Enter valid Email"]
+        // unique:true,
+        // validate:[validator.isEmail,"Please Enter valid Email"]
     },
     password:{
         type:String,
@@ -28,6 +28,8 @@ const userSchema=  new mongoose.Schema({
         type:String,
         default:"user"
     },
+    resetPasswordToken:String,
+    resetPasswordExpire:Date,
  });
 
 // Bcrypt Password
@@ -41,7 +43,7 @@ userSchema.pre("save",async function(next){
 //JWT Token
 userSchema.methods.getJWTToken = function(){
 return jwt.sign({id:this._id},process.env.JWT_SECRET,{
-    expiresIn:process.env.JWT_EXPIRE,
+    // expiresIn:process.env.JWT_EXPIRE,
 });
 };
 
@@ -49,6 +51,8 @@ return jwt.sign({id:this._id},process.env.JWT_SECRET,{
 userSchema.methods.comparePassword = async function(enteredPassword){
     return await bcrypt.compare(enteredPassword,this.password)
 }
+
+
 
 
 module.exports = mongoose.model("user",userSchema);
