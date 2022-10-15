@@ -8,6 +8,7 @@ const connection = require("./database");
 const cookieParser= require("cookie-parser");
 const bodyParser = require('body-parser');
 const userroute= require("./routes/userRoute");
+const scheduleroute= require("./routes/scheduleRoutes");
 
 // set up server
 
@@ -28,7 +29,7 @@ dotenv.config({path:'config/config.env'});
 
 // set up routes
 app.use("/api/v1",userroute);
-
+app.use("/api/v1",scheduleroute);
 app.get('/',(req,res)=>res.send('Hello'));
 
 
