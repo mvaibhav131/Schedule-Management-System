@@ -18,9 +18,10 @@
 ### you can logout your account using api --> http://localhost:8080/api/v1/logout (Get request)
 
 ### If you want to schedule new meeting then use below post request of parameter(date,startTime,endTime) is creating your meeting in particular room.
-### ex--> {"date":"2021-06-22T21:30:34.736+00:00",
+### ex--> { "date":"2021-06-22T21:30:34.736+00:00",
 ###         "startTime":"2021-06-22T21:30:34.736+12:00",
-###         "endTime":"2021-06-22T21:30:34.736+13:00",}
+###         "endTime":"2021-06-22T21:30:34.736+13:00",
+###         "R1":true                             }
 
 ### schedule meeting api-->    http://localhost:8080/api/v1/schedule  (Post Request)
 
