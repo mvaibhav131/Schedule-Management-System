@@ -4,6 +4,8 @@ const express = require("express");
 
 // import necessary files
 const { newSchedule, getSchedule, updateSchedule, deleteSchedule } = require("../controllers/schedul̥eController");
+
+//isAuthenticatedUser cheching the user is login or not before creating schedule
 const { isAuthenticatedUser } = require("../middleware/auth");
 
 // handle HTTP requests
