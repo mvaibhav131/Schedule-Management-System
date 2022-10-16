@@ -1,3 +1,6 @@
+
+// simple class constructor function  is containing code message and satuscode easy to write request and response.
+
 class ErrorHandler extends Error{
     constructor(message,statusCode){
         super(message);

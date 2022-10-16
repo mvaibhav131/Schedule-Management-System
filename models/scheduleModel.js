@@ -1,6 +1,11 @@
+/**
+ * Contains a schema for a schedule Meeting
+ */
 
+// import necessary libraries
 const mongoose= require("mongoose");
 
+//Creating Schedule Schema.
 const scheduleSchema= new mongoose.Schema({
     
                 date:{
@@ -46,4 +51,5 @@ const scheduleSchema= new mongoose.Schema({
                 },
 });
 
+// Exporting scheduleSchema
 module.exports= mongoose.model("schedule",scheduleSchema);

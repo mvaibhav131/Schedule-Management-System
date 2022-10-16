@@ -1,3 +1,9 @@
+
+/**
+ * Contains a schema for a User/Person
+ */
+
+// import necessary libraries
 const mongoose= require("mongoose");
 const validator= require("validator");
 const bcrypt = require("bcryptjs");
@@ -65,4 +71,5 @@ userSchema.methods.getResetPasswordToken= function(){
     return resetToken;
 }
 
+//Exporting UserSchema
 module.exports = mongoose.model("user",userSchema);
