@@ -7,7 +7,6 @@ const { set } = require("mongoose");
 
 
  // add the new schedule to the database
-
  const newSchedule= catchAsyncError(async(req,res)=>{
     // Checking Room  availability
     const available = {
@@ -43,14 +42,14 @@ const { set } = require("mongoose");
       });
       // Checking conditions of Time and date collapsing
     
-      schedule.modifiedPaths((elem,ind)=>{
-        let scheduledate=elem.date.trim().split(":");
-        let schedultstarttime=elem.startTime.trim().split("+");
-        let scheduleendtime=elem.endTime.trim().split("+");
+      schedule.modifiedPaths((elem,ind)=>{ 
+        let scheduleDate=elem.date.trim().split(":");
+        let scheduleStartTime=elem.startTime.trim().split("+");
+        let scheduleEndTime=elem.endTime.trim().split("+");
   
-        let  currentDate=scheduledate[0];
-        let currentStartTime=schedultstarttime[1];
-        let currentEndTime=scheduleendtime[1];
+        let  currentDate=scheduleDate[0];
+        let currentStartTime=scheduleStartTime[1];
+        let currentEndTime=scheduleEndTime[1];
 
         let setStartTime= currentStartTime.trim().split(":");
         let startTimeHours=setStartTime[0];
@@ -61,29 +60,29 @@ const { set } = require("mongoose");
         let endTimeMinutes=setEndTime[1];
   
         for(let i=0;i<MeetingData.length;i++){
-            // first condition is check equal condition of date , startTime , endTime
-           if(MeetingData[i][0]== currentDate && MeetingData[i][1]==currentStartTime && MeetingData[i][2]==currentEndTime){
+            // Check condition if date and startTime is equal
+           if(MeetingData[i][0]===currentDate && MeetingData[i][1]===currentStartTime ){
              return res.status(500).json({
                   success:false,
                   message:"These Schedule Time is Not Available Please Schedule Diffrent Time"
               });
            }
-           // second condition is checking the meeting start time hours is less than endTimeHours.
-           else if(MeetingData[i][0]==currentDate && Number(MeetingData[i][1][0])<Number(endTimeHours)){
+           // Check condition as same date but time changes in hours
+           else if(MeetingData[i][0]===currentDate && Number(MeetingData[i][2][0])>Number(startTimeHours)){
             return res.status(500).json({
                 success:false,
                 message:"These Schedule Time is Not Available Please Schedule Diffrent Time"
             });
            }
-           // third condition is checking the meeting end time before starting the start time of another meetings.
-           else if(MeetingData[i][0]==currentDate && Number(MeetingData[i][2][0])>Number(startTimeHours)){
+           // condition is checking the meeting end time before starting the start time of another meetings.
+           else if(MeetingData[i][0]===currentDate && Number(MeetingData[i][1][0])>Number(endTimeHours)<Number(startTimeHours)){
             return res.status(500).json({
                 success:false,
                 message:"These Schedule Time is Not Available Please Schedule Diffrent Time"
             });
            }
-           // fourth condition is checking equal starting hours and minute diffrence.
-           else if(MeetingData[i][0]==currentDate && Number(MeetingData[i][1][0])==Number(startTimeHours) && (Number(MeetingData[i][1][1])>Number(endTimeMinutes) || Number(MeetingData[i][2][1])<Number(startTimeMinutes))){
+           // condition checking for start time is same but diffrence in minutes
+           else if(MeetingData[i][0]===currentDate && Number(MeetingData[i][1][0])===Number(startTimeHours) && (Number(MeetingData[i][1][1])>Number(endTimeMinutes) || Number(MeetingData[i][2][1])<Number(startTimeMinutes))){
             return res.status(500).json({
                 success:false,
                 message:"These Schedule Time is Not Available Please Schedule Diffrent Time"
@@ -93,9 +92,9 @@ const { set } = require("mongoose");
            let Data=[];
            Data.push(currentDate,currentStartTime,currentEndTime);
            MeetingData.push(Data);
-          }
-        }
-    })
+          };
+        };
+    });
     res.status(200).json({
         success:true,
         message:"New Meeting Schedule Successfully",
