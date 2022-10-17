@@ -111,3 +111,9 @@ const personMeetingSchema=  new mongoose.Schema({
  });
 
  module.exports= mongoose.Schema("personMeet",personMeetingSchema);
+
+ //tips to avoid person collapsing same time
+
+ //these schema is containing the  reference of schedule .
+ //when you attached the any person in meeting then check that person schedule using the get request (/schedule).
+ //its check that the user is busy in another meeting or not .
