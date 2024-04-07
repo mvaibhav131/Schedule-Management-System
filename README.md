@@ -1,7 +1,7 @@
 # Schedule-Management-System
  backend assignment
 
-## Start the server using command --> npm run dev
+## Start the server using command --> `npm run dev`
 
 ## To schedule the meeting you need the register and login first.
 
