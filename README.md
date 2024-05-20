@@ -1,5 +1,5 @@
 # Schedule-Management-System
- backend assignment
+ backend assignments
 
 ## Start the server using commands --> `npm run dev`
 
