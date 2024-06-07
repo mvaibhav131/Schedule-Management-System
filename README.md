@@ -1,4 +1,4 @@
-# Schedule-Management-System
+# Schedule-Management-System.
  backend assignments
 
 ## Start the server using commands --> `npm run dev`
